@@ -1,0 +1,24 @@
+                                                                
+
+
+apt update
+apt install php php-cgi php-mysqli php-pear php-mbstring libapache2-mod-php php-common php-phpseclib php-mysql mariadb-server mariadb-client -y
+mysql_secure_installation
+n,y,y,y,y,y
+
+wget -P Downloads https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
+mkdir /var/www/html/phpmyadmin
+tar xvf phpMyAdmin-latest-all-languages.tar.gz --strip-components=1 -C /var/www/html/phpmyadmin
+cp /var/www/html/phpmyadmin/config.sample.inc.php /var/www/html/phpmyadmin/config.inc.php
+
+nano /var/www/html/phpmyadmin/config.inc.php
+$cfg['blowfish_secret'] = 'JOFe435365IScA&Q!cDugr!lSfuAz*Oa'; <---- (example)
+
+chmod 660 /var/www/html/phpmyadmin/config.inc.php
+chown -R www-data:www-data /var/www/html/phpmyadmin
+
+
+CREATE USER 'root'@'localhost' IDENTIFIED BY 'tomek';
+GRANT ALL PRIVILEGES ON *.* TO 'tomek'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EXIT;
